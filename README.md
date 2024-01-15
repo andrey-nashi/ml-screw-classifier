@@ -23,6 +23,7 @@ Execute the shell script `run-replicate-results.sh`
 
 **Training**
 
+Execute the shell script `run-replicate-training.sh`
 
 **Utils**
 
