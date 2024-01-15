@@ -47,7 +47,14 @@ python3 run-gen-synthetic.py
 ```
 
 --------------------------------------
+**Deployment on gradio**
 
+```
+cd src
+python3 run-inference.py
+```
+
+--------------------------------------
 Note
 - Docker may not run correctly if there is a cudnn/driver version mismatch. 
 Make virtual environment (use requirements in dir `docker`) and run natively. 
