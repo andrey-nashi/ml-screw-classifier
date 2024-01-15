@@ -40,6 +40,11 @@ class SmpModel_Light(pl.LightningModule):
         self.optimizer = None
         self.optimizer_lr = None
 
+        self._loss_train = 0
+        self._loss_train_counter = 1
+        self._loss_val = 0
+        self._loss_val_counter = 1
+
     def set_loss_func(self, loss_func: callable):
         self.loss_func = loss_func
 
@@ -67,7 +72,8 @@ class SmpModel_Light(pl.LightningModule):
         mask_pr = self.forward(image)
 
         loss = self.loss_func(mask_pr, mask_gt)
-        self.log('train_loss', loss)
+        self._loss_train += loss
+        self._loss_train_counter += 1
         return loss
 
     def on_train_epoch_end(self):
@@ -83,9 +89,18 @@ class SmpModel_Light(pl.LightningModule):
 
         mask_pr = self.forward(image)
         loss = self.loss_func(mask_pr, mask_gt)
-        self.log('val_loss', loss)
+        self._loss_val += loss
+        self._loss_val_counter += 1
+        return loss
 
     def on_validation_epoch_end(self):
+        self.log('train_loss', self._loss_train / self._loss_train_counter)
+        self.log('val_loss', self._loss_val / self._loss_val_counter)
+        self._loss_train = 0
+        self._loss_train_counter = 0
+        self._loss_val = 0
+        self._loss_val_counter = 0
+
         return
 
     def configure_optimizers(self):

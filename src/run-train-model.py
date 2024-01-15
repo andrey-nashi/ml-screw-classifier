@@ -42,11 +42,11 @@ def main(path_dir_root, path_json_train, path_json_val, image_size, batch_size, 
 #---------------------------------------------------------------------------------------
 
 if __name__ == '__main__':
-    DEFAULT_DIR_ROOT = "../"
-    DEFAULT_JSON_TRAIN = "../data/ds-train.json"
-    DEFAULT_JSON_TEST = "../data/ds-test.json"
+    DEFAULT_DIR_ROOT = "../data"
+    DEFAULT_JSON_TRAIN = "../data/dataset/ds-train.json"
+    DEFAULT_JSON_TEST = "../data/dataset/ds-test.json"
     DEFAULT_BATCH_SIZE = 8
     DEFAULT_EPOCHS = 100
     DEFAULT_IMG_SIZE = 512
 
-    main(DEFAULT_DIR_ROOT, DEFAULT_JSON_TRAIN, DEFAULT_JSON_TEST)
+    main(DEFAULT_DIR_ROOT, DEFAULT_JSON_TRAIN, DEFAULT_JSON_TEST, DEFAULT_IMG_SIZE, DEFAULT_BATCH_SIZE, DEFAULT_EPOCHS)
