@@ -1,0 +1,30 @@
+#
+# docker-compose.yaml
+# Copyright (C) 2023 morita <masaru.morita(a)roms.inc>
+#
+
+version: '3'
+
+services:
+
+  pytorch_dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pytorch_dev
+    #ports: ["2555:8000"]
+    privileged: true
+    network_mode: "host"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [ gpu ]
+    volumes:
+      - /home/indra/Development:/mldev
+
+    entrypoint:
+      - bash
+      - -c
