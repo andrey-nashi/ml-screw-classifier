@@ -1,20 +1,39 @@
 import os.path
 
 import gdown
-import zipfile
+import tarfile
 
-GOOGLE_DRIVE_URL = "https://drive.google.com/file/d/1FVx-1is8EYGliE56XxyG6rsh6W1K-YqK/view?usp=sharing"
-DOWNLOAD_PATH = "../data"
+DOWNLOAD_PATH = "../data/"
 
-def download_data(url: str, path_dir: str):
-    path_file = os.path.join(path_dir, "screws.zip")
+GOOGLE_DRIVE_OUTPUT = "https://drive.google.com/file/d/1qCQsKZfWfOmvpCfAKsfiPEId9Wp74XHY/view?usp=sharing"
+FILE_OUTPUT_NAME = "output.tar.gz"
+
+GOOGLE_DRIVE_DATA = "https://drive.google.com/file/d/1iCpyfVszYy0GfT4o3HabMiuJaDVnMPVd/view?usp=sharing"
+FILE_DATA_NAME = "data.tar.gz"
+
+# ---------------------------------------------------------------------------
+def download_data(url: str, path_dir: str, file_name: str):
+    path_file = os.path.join(path_dir, file_name)
     # ---- Download from google drive by the provided URL
     gdown.download(url, path_file, quiet=False, fuzzy=True)
 
-    print(path_file)
-    # ---- Unzip, make the dataset nice
-    with zipfile.ZipFile(path_file, 'r') as zip_ref:
-        zip_ref.extractall(path_dir)
+def extract(source: str, destination: str):
+    file = tarfile.open(source)
+    file.extractall(destination)
+    file.close()
 
+# ---------------------------------------------------------------------------
 
-download_data(GOOGLE_DRIVE_URL, DOWNLOAD_PATH)
+print(">>> DOWNLOADING DELIVERABLES - WEIGHTS & IMAGES")
+download_data(GOOGLE_DRIVE_OUTPUT, DOWNLOAD_PATH, FILE_OUTPUT_NAME)
+
+print(">>> EXTRACTING  DELIVERABLES - WEIGHTS & IMAGES")
+extract(os.path.join(DOWNLOAD_PATH, FILE_OUTPUT_NAME), DOWNLOAD_PATH)
+
+# ---------------------------------------------------------------------------
+
+print(">>> DOWNLOADING DATA - IMAGES & MASKS")
+download_data(GOOGLE_DRIVE_OUTPUT, DOWNLOAD_PATH, FILE_OUTPUT_NAME)
+
+print(">>> EXTRACTING DATA - IMAGES & MASKS")
+extract(os.path.join(DOWNLOAD_PATH, FILE_OUTPUT_NAME), DOWNLOAD_PATH)
