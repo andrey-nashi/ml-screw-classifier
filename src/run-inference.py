@@ -1,4 +1,3 @@
-
 import gradio as gr
 import numpy as np
 import torch
@@ -7,9 +6,6 @@ import albumentations as alb
 from core.model.smp import SmpModel_Light
 
 from core.utils.cv2d_draw import cv2d_draw_mask_contour
-
-
-
 
 IMAGE_SIZE = 512
 PATH_MODEL = "../data/output/weights/unet_resnet_100.ckpt"
