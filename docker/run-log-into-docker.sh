@@ -1,0 +1,1 @@
+docker-compose run pytorch_dev bash -d

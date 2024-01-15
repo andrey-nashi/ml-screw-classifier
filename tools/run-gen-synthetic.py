@@ -36,10 +36,10 @@ class Tools:
 
 class SyntheticGenerator:
 
-    DEFAULT_PATH = "../data/synthetic/source/texture.png"
-
-    def __init__(self, templates: list, path_root: str):
+  
+    def __init__(self, templates: list, path_root: str, texture_path: str = None):
         self._template_db = []
+        self._texture_path = texture_path
         self._texture = None
         self._load_templates(templates, path_root)
 
@@ -57,8 +57,8 @@ class SyntheticGenerator:
 
             self._template_db.append([image, mask])
 
-        if os.path.exists(self.DEFAULT_PATH):
-            self._texture = cv2.imread(self.DEFAULT_PATH)
+        if os.path.exists(self._texture_path):
+            self._texture = cv2.imread(self._texture_path)
             self._texture = cv2.cvtColor(self._texture, cv2.COLOR_BGR2GRAY)
 
     def _generate_background(self, width: int, height: int):
@@ -149,18 +149,21 @@ class SyntheticGenerator:
 # -------------------------------------------------------------------------
 
 def main():
-    PATH_ROOT = "../data/synthetic/source"
+    PATH_ROOT = "../data/synth"
+    PATH_TEXTURE = "../data/synth/texture.png"
     TEMPLATES = [
         ["template01.png", "mask01.png"],
         ["template02.png", "mask02.png"]
     ]
 
-    output = "../data/synthetic/data"
+    output = "./synthetic"
+    if not os.path.exists(output):
+        os.makedirs(output)
 
     for i in range(0, 200):
 
 
-        generator = SyntheticGenerator(TEMPLATES, PATH_ROOT)
+        generator = SyntheticGenerator(TEMPLATES, PATH_ROOT, PATH_TEXTURE)
         image_out, mask_defect = generator.generate()
 
         file_image = "synth-" + str(i).zfill(3) + "-img.png"

@@ -28,12 +28,12 @@ pandas
 #----------------------------------------------
 torch
 torchvision
-segmentation-models-pytorch
+segmentation-models-pytorch==0.3.2
 efficientnet-pytorch
 dataclasses
 albumentations
 pretrainedmodels
-pytorch-lightning
+pytorch-lightning==2.0.2
 adabound==0.0.5
 einops
 munkres

@@ -67,6 +67,7 @@ class SmpModel_Light(pl.LightningModule):
         mask_pr = self.forward(image)
 
         loss = self.loss_func(mask_pr, mask_gt)
+        self.log('train_loss', loss)
         return loss
 
     def on_train_epoch_end(self):

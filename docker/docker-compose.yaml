@@ -23,7 +23,8 @@ services:
               count: all
               capabilities: [ gpu ]
     volumes:
-      - /home/indra/Development:/mldev
+      - /dev/shm:/dev/shm
+      - ../:/mldev
 
     entrypoint:
       - bash
